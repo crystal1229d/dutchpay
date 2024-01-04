@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { Container, Form, Row } from 'react-bootstrap';
-import CenteredOverlayForm, { StyledH2, StyledRow, StyledSubmitButton } from './CenteredOverlayForm';
+import { Form } from 'react-bootstrap';
+import CenteredOverlayForm from './CenteredOverlayForm';
 import { groupNameState } from '../state/groupName';
 
 const CreateGroup = () => {
@@ -23,35 +23,25 @@ const CreateGroup = () => {
     }
 
     return (
-        <CenteredOverlayForm>
-            <Container>
-                <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                    <StyledRow>
-                        <Row className='align-itmes-start'>
-                            <StyledH2>먼저, 더치페이할 그룹 이름을 정해볼까요?</StyledH2>
-                        </Row>
-                        <Row className='align-items-center'>
-                            <Form.Group controlId="validationGroupName">
-                                <Form.Control
-                                    type="text"
-                                    required 
-                                    placeholder="2024 일본 여행"
-                                    onChange={(e) => setGroupName(e.target.value)}
-                                />
-                                <Form.Control.Feedback
-                                    type="invalid"
-                                    data-valid={validGroupName}
-                                >
-                                    그룹 이름을 입력해주세요. 
-                                </Form.Control.Feedback>
-                            </Form.Group>
-                        </Row>
-                        <Row className='align-items-end'>
-                            <StyledSubmitButton>저장</StyledSubmitButton>
-                        </Row>
-                    </StyledRow>
-                </Form>
-             </Container>
+        <CenteredOverlayForm
+            title='먼저, 더치페이할 그룹의 이름을 정해볼까요?'
+            validated={validated}
+            handleSubmit={handleSubmit}
+        >
+            <Form.Group controlId="validationGroupName">
+                <Form.Control
+                    type="text"
+                    required 
+                    placeholder="2024 일본 여행"
+                    onChange={(e) => setGroupName(e.target.value)}
+                />
+                <Form.Control.Feedback
+                    type="invalid"
+                    data-valid={validGroupName}
+                >
+                    그룹 이름을 입력해주세요. 
+                </Form.Control.Feedback>
+            </Form.Group>
         </CenteredOverlayForm>
     );
 }

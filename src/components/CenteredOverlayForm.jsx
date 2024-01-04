@@ -1,13 +1,28 @@
-import { Button, Container, Row } from 'react-bootstrap';
+import { Button, Container, Form, Row } from 'react-bootstrap';
 import styled from 'styled-components';
 import OverlayWrapper from './shared/OverlayWrapper';
 
-const CenteredOverlayForm = ({ children }) => {
+const CenteredOverlayForm = ({ title, children, validated, handleSubmit }) => {
     return (
         <CentralizedContainer>
-            <StyledHeader>Dutch Pay</StyledHeader>
+            <StyledLogo>Dutch Pay</StyledLogo>
+            
             <OverlayWrapper>
-                {children}
+                <Container>
+                    <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                        <StyledCentralizedContent>
+                            <Row className='align-itmes-start'>
+                                <StyledTitle>{title}</StyledTitle>
+                            </Row>
+                            <Row className='align-items-center'>
+                                {children}
+                            </Row>
+                            <Row className='align-items-end'>
+                                <StyledSubmitButton>저장</StyledSubmitButton>
+                            </Row>
+                        </StyledCentralizedContent>
+                    </Form>
+                </Container>
             </OverlayWrapper>
         </CentralizedContainer>
     )
@@ -27,19 +42,21 @@ const CentralizedContainer = styled(Container)`
     gap: 10px;
 `;
 
-const StyledHeader = styled.h1`
+// StyledHeader -> StyledH1 -> StyledLogo (목적에 맞게 네이밍 + 가독성)
+const StyledLogo = styled.h1`
     font-wiehgt: 200;
     letter-spacing: 10px;
     color: #6610F2;
 `;
 
-export const StyledRow = styled(Row)`
+const StyledCentralizedContent = styled(Row)`
     height: 60vh;
     align-items: center;
     justify-content: center;
 `;
 
-export const StyledH2 = styled.h2`
+// StyledH2 -> StyledTitle (목적에 맞게 네이밍 + 가독성)
+const StyledTitle = styled.h2`
     text-align: right;
     font-weight: 700;
     line-height: 35px;
@@ -47,7 +64,7 @@ export const StyledH2 = styled.h2`
     word-break: keep-all;
 `;
 
-export const StyledSubmitButton = styled(Button).attrs({
+const StyledSubmitButton = styled(Button).attrs({
     type: 'submit', 
 })`
     background-color: #6610F2;
