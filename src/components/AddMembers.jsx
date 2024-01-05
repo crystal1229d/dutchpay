@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import CenteredOverlayForm from './CenteredOverlayForm';
 import { InputTags } from 'react-bootstrap-tagsinput';
 import { groupMembersState } from '../state/groupMembers';
 import { groupNameState } from '../state/groupName';
 import styled from 'styled-components';
+import { CenteredOverlayForm } from './CenteredOverlayForm';
 
-const AddMembers = () => {
+export const AddMembers = () => {
     const [validated, setValidated] = useState(false);
     const [grouopMembers, setGroupMembers] = useRecoilState(groupMembersState);
     const groupName = useRecoilValue(groupNameState); // value 만 가져오기
@@ -33,8 +33,6 @@ const AddMembers = () => {
         </CenteredOverlayForm>
     );
 }
-
-export default AddMembers;
 
 const StyledErrorMessage = styled.span`
     color: red;

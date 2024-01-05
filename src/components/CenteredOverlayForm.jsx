@@ -2,7 +2,7 @@ import { Button, Container, Form, Row } from 'react-bootstrap';
 import styled from 'styled-components';
 import OverlayWrapper from './shared/OverlayWrapper';
 
-const CenteredOverlayForm = ({ title, children, validated, handleSubmit }) => {
+export const CenteredOverlayForm = ({ title, children, validated, handleSubmit }) => {
     return (
         <CentralizedContainer>
             <StyledLogo>Dutch Pay</StyledLogo>
@@ -27,8 +27,6 @@ const CenteredOverlayForm = ({ title, children, validated, handleSubmit }) => {
         </CentralizedContainer>
     )
 }
-
-export default CenteredOverlayForm;
 
 const CentralizedContainer = styled(Container)`
     width: 50vw;

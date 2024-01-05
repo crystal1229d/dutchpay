@@ -1,10 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import CreateGroup from './components/CreateGroup';
-import AddMembers from './components/AddMembers';
-import ExpenseMain from './components/ExpenseMain';
+import { CreateGroup } from './components/CreateGroup'
+import { AddMembers } from './components/AddMembers'
+import { ExpenseMain } from './components/ExpenseMain'
+
 
 const App = () => {
   return (
@@ -13,7 +13,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<CreateGroup />} />
           <Route path='/members' element={<AddMembers />} />
-          <Route path='/expenses' element={<ExpenseMain />} />
+          <Route path='/expense' element={<ExpenseMain />} />
         </Routes>
       </BrowserRouter>
     </RecoilRoot>
