@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
-const OverlayWrapper = ({ children }) => {
+const OverlayWrapper = ({ children, padding, minHeight }) => {
     return (
-        <StyledContainer>{children}</StyledContainer>
+        <StyledContainer padding={padding} minHeight={minHeight}>
+            {children}
+        </StyledContainer>
     )
 }
 

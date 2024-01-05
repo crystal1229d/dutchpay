@@ -50,6 +50,12 @@ export const AddExpenseForm = () => {
                 ...expense, 
                 newExpense 
             ]);
+
+            // input 초기화 
+            setDesc(formattedToday);
+            setDesc('')
+            setAmount(0)
+            setPayer(null)
         }
         setValidated(true);
     }
@@ -123,6 +129,7 @@ export const AddExpenseForm = () => {
                                 {
                                     members.map(member => <option key={member} value={member}>{member}</option>)
                                 }
+                                <option value='영수'>영수</option>
                             </Form.Select>
                             <Form.Control.Feedback
                                 type='invalid'
@@ -146,7 +153,7 @@ export const AddExpenseForm = () => {
 const StyledWrapper = styled.div`
     padding: 50px;
     background-color: #683BA1;
-    border-radius 15px;
+    border-radius: 15px;
     box-shadow: 3px 0px 4px rgba(0, 0, 0, 0.25);
 `;
 

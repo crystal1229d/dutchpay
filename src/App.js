@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import './App.css'
 import { CreateGroup } from './components/CreateGroup'
 import { AddMembers } from './components/AddMembers'
 import { ExpenseMain } from './components/ExpenseMain'
