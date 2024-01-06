@@ -5,15 +5,23 @@ import { groupMembersState } from '../state/groupMembers';
 import { groupNameState } from '../state/groupName';
 import styled from 'styled-components';
 import { CenteredOverlayForm } from './CenteredOverlayForm';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../routes';
 
 export const AddMembers = () => {
     const [validated, setValidated] = useState(false);
     const [grouopMembers, setGroupMembers] = useRecoilState(groupMembersState);
     const groupName = useRecoilValue(groupNameState); // value 만 가져오기
 
+    const navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setValidated(true);
+
+        if (grouopMembers.length > 0) {
+            navigate(ROUTES.EXPENSES_MAIN)
+        }
     }
 
     return (

@@ -1,12 +1,12 @@
 import { Button, Container, Form, Row } from 'react-bootstrap';
 import styled from 'styled-components';
 import OverlayWrapper from './shared/OverlayWrapper';
+import { ServiceLogo } from './ServiceLogo';
 
 export const CenteredOverlayForm = ({ title, children, validated, handleSubmit }) => {
     return (
         <CentralizedContainer>
-            <StyledLogo>Dutch Pay</StyledLogo>
-            
+            <ServiceLogo />
             <OverlayWrapper>
                 <Container>
                     <Form noValidate validated={validated} onSubmit={handleSubmit}>
@@ -38,13 +38,6 @@ const CentralizedContainer = styled(Container)`
     align-items: center;
     padding: 0px;
     gap: 10px;
-`;
-
-// StyledHeader -> StyledH1 -> StyledLogo (목적에 맞게 네이밍 + 가독성)
-const StyledLogo = styled.h1`
-    font-wiehgt: 200;
-    letter-spacing: 10px;
-    color: #6610F2;
 `;
 
 const StyledCentralizedContent = styled(Row)`

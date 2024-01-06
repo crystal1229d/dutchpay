@@ -55,7 +55,7 @@ export const AddExpenseForm = () => {
             setDesc(formattedToday);
             setDesc('')
             setAmount(0)
-            setPayer(null)
+            setPayer('')
         }
         setValidated(true);
     }
@@ -129,7 +129,6 @@ export const AddExpenseForm = () => {
                                 {
                                     members.map(member => <option key={member} value={member}>{member}</option>)
                                 }
-                                <option value='영수'>영수</option>
                             </Form.Select>
                             <Form.Control.Feedback
                                 type='invalid'
@@ -180,7 +179,7 @@ const StyledFormGroup = styled(Form.Group)`
     }
 `;
 
-const StyledTitle = styled.h3`
+export const StyledTitle = styled.h3`
     color: #FFFBFB;
     text-align: center;
     font-weight: 700;
