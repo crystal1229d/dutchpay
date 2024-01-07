@@ -111,7 +111,7 @@ export const AddExpenseForm = () => {
                                 type='invalid'
                                 data-valid={isAmountValid}
                             >
-                                금액을 입력해 주셔야 합니다.
+                                1원 이상의 금액을 입력해 주셔야 합니다.
                             </Form.Control.Feedback>
                         </StyledFormGroup>
                     </Col>

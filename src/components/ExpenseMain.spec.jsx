@@ -22,7 +22,7 @@ const renderComponent = () => {
     // queryBy -> getBy : error 가 있든 없든 해당 에러메시지 엘리먼트들은 항상 렌더링되어있으므로
     const descErrorMessage = screen.getByText('비용 내용을 입력해 주셔야 합니다.')
     const payerErrorMessage = screen.getByText('결제자를 선택해 주셔야 합니다.')
-    const amountErrorMessage = screen.getByText('금액을 입력해 주셔야 합니다.')
+    const amountErrorMessage = screen.getByText('1원 이상의 금액을 입력해 주셔야 합니다.')
 
     return {
         dateInput, 
@@ -115,8 +115,12 @@ describe('비용정산 메인페이지', () => {
             await userEvent.selectOptions(payerInput, '영수')
             await userEvent.click(addButton)
         }
+
+        beforeEach(async () => {
+            await addNewExpense()
+        })
+
         test('날짜, 내용, 결제자, 금액 데이터가 정산 리스트에 추가된다', async () => {
-            await addNewExpense();
             const expenseListComponent = screen.getByTestId('expenseList');
             // within : 전체 페이지가 아니라 expenseList 컴포넌트 내에서만 검색 
             const dateValue = within(expenseListComponent).getByText('2024-01-10')
@@ -133,13 +137,25 @@ describe('비용정산 메인페이지', () => {
         })
 
         test('정산 결과 또한 업데이트된다', async () => {
-            await addNewExpense()
-
-            const totalText = screen.getByText(/2명 - 총 30000원 지출/i)
+            const totalText = screen.getByText(/2명이서 총 30000 원 지출/i)
             expect(totalText).toBeInTheDocument()
 
-            const transactionText = screen.getByText(/영희가 영수에게 15000원/i)
+            const transactionText = screen.getByText(/영희가 영수에게 15000 원/i)
             expect(transactionText).toBeInTheDocument()
+        })
+
+        const htmlToImage = require('html-to-image')
+        test('정산 결과를 이미지 파일로 저장할 수 있다', async () => {
+            const spiedToPng = jest.spyOn(htmlToImage, 'toPng')
+            const downloadBtn = screen.getByTestId('btn-download')
+            expect(downloadBtn).toBeInTheDocument()
+
+            await userEvent.click(downloadBtn)
+            expect(spiedToPng).toHaveBeenCalledTimes(1)
+        })
+
+        afterEach(() => {
+            jest.resetAllMocks()
         })
     })
 })

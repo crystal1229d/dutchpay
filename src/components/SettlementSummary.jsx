@@ -3,6 +3,9 @@ import { expensesState } from '../state/expenses'
 import { groupMembersState } from '../state/groupMembers'
 import styled from 'styled-components'
 import { StyledTitle } from './AddExpenseForm'
+import { Button } from 'react-bootstrap'
+import { toPng } from 'html-to-image'
+import { useRef } from 'react'
 
 export const calculateMinimumTransaction = (expenses, members, amountPerPerson) => {
     const minTransactions = []
@@ -63,6 +66,8 @@ export const calculateMinimumTransaction = (expenses, members, amountPerPerson) 
 }
 
 export const SettlementSummary = () => {
+    const wrapperElement = useRef(null)
+
     const expenses = useRecoilValue(expensesState)
     const members = useRecoilValue(groupMembersState)
 
@@ -70,17 +75,36 @@ export const SettlementSummary = () => {
     const groupMembersCount = members.length 
     const splitAmount = totalExpenseAmount / groupMembersCount
 
-    // TODO: 핵심 로직 구성 
     const minimumTransaction = calculateMinimumTransaction(expenses, members, splitAmount)
 
+    const exportToImage = () => { 
+        if (wrapperElement.current === null) {
+            return 
+        }
+
+        toPng(wrapperElement.current, {
+            filter: (node) => node.tagName !== 'BUTTON', 
+        })
+            .then((dataURL) => {
+                const link = document.createElement('a')
+                link.download = 'settlement-summary.png'
+                link.href = dataURL 
+
+                link.click() 
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+    }
+
     return (
-        <StyledWrapper>
+        <StyledWrapper ref={wrapperElement}>
             <StyledTitle>2. 정산은 이렇게!</StyledTitle>
             {
                 totalExpenseAmount > 0 && groupMembersCount > 0 && (
                     <>
                         <StyledSummary>
-                            <span>{groupMembersCount} 명이서 총 {totalExpenseAmount} 원 지출</span>
+                            <span>{groupMembersCount}명이서 총 {totalExpenseAmount} 원 지출</span>
                             <br />
                             <span>한 사람 당 {splitAmount} 원</span>
                         </StyledSummary>
@@ -94,6 +118,9 @@ export const SettlementSummary = () => {
                                 ))
                             }
                         </StyledUl>
+                        <StyledButton data-testid='btn-download' onClick={exportToImage}>
+                            <i class="bi bi-download"></i>
+                        </StyledButton>
                     </>
                 )
             }
@@ -103,12 +130,27 @@ export const SettlementSummary = () => {
 
 const StyledWrapper = styled.div`
     padding: 50px;
+    position: relative;
     background-color: #683BA1;
     color: #FFFBFB;
     border-radius: 15px;
     box-shadow: 3px 8px 4px rgba(0, 0, 0, 0.25);
     text-align: center; 
     font-size: 22px;
+`;
+
+const StyledButton = styled(Button)`
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 25px;
+
+    &:hover, &:active {
+        background: none;
+        color: #683BA1;
+    }
 `;
 
 const StyledSummary = styled.div`
