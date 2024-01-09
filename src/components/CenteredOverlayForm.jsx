@@ -30,7 +30,7 @@ export const CenteredOverlayForm = ({ title, children, validated, handleSubmit }
 
 const CentralizedContainer = styled(Container)`
     width: 50vw;
-    @media { max-width: 500px } {
+    @media (max-width: 500px) {
         width: 80vw;
     }
     min-height: 100vh;
